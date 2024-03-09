@@ -41,7 +41,7 @@ else{
       res.status(404).json({success:false,message:error.message})
   }
 }
-
+ 
 export const checkOtp=async(req,res)=>{
   try {
      const {otp,email}=req.body;
