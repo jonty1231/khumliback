@@ -9,7 +9,7 @@ route.post("/register",registerUser)
 route.post("/login",loginUser)
 route.post("/sendotp",otpgenerat)
 route.post("/verifyotp",checkOtp)
-
+route.get("/getuser",protect,getuser)
 route.post("/getuser",protect,getuser)
 
 route.get("/serachusers",protect,searschuser)
