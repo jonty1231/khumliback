@@ -10,7 +10,6 @@ route.post("/login",loginUser)
 route.post("/sendotp",otpgenerat)
 route.post("/verifyotp",checkOtp)
 route.get("/getuser",protect,getuser)
-\
 
 route.get("/serachusers",protect,searschuser)
 route.post('/sendrequest',protect,sendRequest) 
