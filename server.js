@@ -19,6 +19,7 @@ app.use(cookiparser())
 import userrouter  from "./routes/userRouter.js"
 import chatrouter from "./routes/chatrouters.js"
 import messageroute from "./routes/messagerouter.js"
+app.get("/",(req,res)=>{res.json({OK:"ko"})})
  app.use("/",userrouter)
  app.use("/",chatrouter)
 app.use("/",messageroute)

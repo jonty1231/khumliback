@@ -5,7 +5,61 @@ import { getdatauri } from "../middlewere/imgupload.js";
 import { imguploading ,deleteimg} from "../helper/cloudnery.js";
 import { Message } from "../models/messageModels.js";
 import { Chat } from "../models/chatModel.js";
+import Otpgen from "../models/otp.js";
+import { sendMail } from "../helper/nodemailer.js";
 
+
+export const otpgenerat=async(req,res)=>{
+  try {
+      const {email}=req.body
+      if(!email){ res.status(200).json({success:false,message:"Enter email"})}
+   const allreadyuser=await User.findOne({email})
+   const otp= Math.floor(Math.random()*10000)
+   if(allreadyuser){
+      res.status(201).json({ success:false,message:"email allready exist"})
+      return  } 
+   else{
+const alreadyotp = await Otpgen.findOne({email})
+if(alreadyotp){
+  await Otpgen.findOneAndDelete({email})
+  await Otpgen.create({email,otp})
+  sendMail(email,otp)
+  res.status(201).json({ success:true,message:"otp sent",otp})
+
+}
+else{ 
+  await Otpgen.create({email,otp})
+  sendMail(email,otp)
+  res.status(201).json({ success:true,message:"otp sent",otp})
+
+}
+
+
+   }
+
+  } catch (error) {
+      res.status(404).json({success:false,message:error.message})
+  }
+}
+
+export const checkOtp=async(req,res)=>{
+  try {
+     const {otp,email}=req.body;
+const checkemail=await Otpgen.findOne({email})
+let date1=new Date(checkemail.createdAt)
+let date2= new Date(Date.now())
+let diff=date2.getMinutes() - date1.getMinutes()
+  if(checkemail.otp==otp && diff < 10){
+      await Otpgen.findByIdAndDelete({_id:checkemail._id})
+  res.status(201).json({success:true,message:"correct otp"})
+
+  }
+  res.status(201).json({message:"Enter valide Otp"})
+
+} catch (error) {
+      
+  }
+}
 
 
  export   const registerUser= async (req,res)=>{
