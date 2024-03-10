@@ -6,7 +6,7 @@ import cors from "cors"
 import cookiparser from "cookie-parser"
 const app= express()
 app.use(express.json());
-const front="https://khumlibawa.netlify.app/"
+const front="https://khumlibawa.netlify.app"
 app.use(cors({ origin:front,
 credentials:true,}))
 app.use(cookiparser())
