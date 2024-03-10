@@ -12,7 +12,7 @@ import {User} from "../models/userModel.js"
             
       }
 
-         const {_id}=await jwt.verify(token,process.env.SECRET_KEY)
+         const {_id}= jwt.verify(token,process.env.SECRET_KEY)
 const user=await User.findOne({_id}).select("-password");
   if(!user){
     return  res.status(200).json({
