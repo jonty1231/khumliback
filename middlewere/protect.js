@@ -10,9 +10,9 @@ const user=await User.findOne({_id}).select("-password");
   if(!user){
     return  res.status(200).json({
         success:false,
-        message:"user not found"
+        message:"user not founds"
       
-})
+}) 
 
 
 }
