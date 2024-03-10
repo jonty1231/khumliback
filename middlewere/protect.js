@@ -7,7 +7,7 @@ import {User} from "../models/userModel.js"
         const token= req.cookies.khumli;
         if(!token){
           return res.status(200).json({
-              success:false, })
+              success:false,message:"not token" })
             
             
       }
