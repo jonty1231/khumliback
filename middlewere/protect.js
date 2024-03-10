@@ -4,8 +4,15 @@ import {User} from "../models/userModel.js"
 
  export const protect=async(req,res,next)=>{
     try {
-        const {khumli}= req.cookies;
-         const {_id}= jwt.verify(khumli,process.env.SECRET_KEY)
+        const token= req.cookies.khumli;
+        if(!token){
+          return res.status(400).json({
+              success:false, })
+            
+            
+      }
+
+         const {_id}=await jwt.verify(token,process.env.SECRET_KEY)
 const user=await User.findOne({_id}).select("-password");
   if(!user){
     return  res.status(200).json({
@@ -15,8 +22,10 @@ const user=await User.findOne({_id}).select("-password");
 }) 
 
 
-}
+}else{
   req.user=user;
+  
+}
   next()
         
     } catch (error) {
