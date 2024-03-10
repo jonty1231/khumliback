@@ -85,8 +85,10 @@ const id= await user._id.toString();
 res.cookie("khumli",createtoken(id),{
   path:"/",
   httpOnly:true,
-  expires:new Date(Date.now()+10*100 *100*800 *100000)
-})
+  expires:new Date(Date.now()+10*100 *100*800 *100000),
+  sameSite:'none',
+  secure:true,
+}),
 
 res.status(200).json({
   success:true,
@@ -124,7 +126,9 @@ if(!veryfypassword){
  res.status(201).cookie("khumli",createtoken(id),{
    path:"/",
    httpOnly:true,
-   expires:new Date(Date.now()+10*100 *100*800 *100000)
+   expires:new Date(Date.now()+10*100 *100*800 *100000),
+   sameSite:'none',
+   secure:true,
  }).json({
   success:true,
   message:"login"
