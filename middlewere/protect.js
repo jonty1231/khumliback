@@ -8,9 +8,10 @@ import {User} from "../models/userModel.js"
          const {_id}= jwt.verify(khumli,process.env.SECRET_KEY)
 const user=await User.findOne({_id}).select("-password");
   if(!user){
-    return  res.status(300).json({
+    return  res.status(200).json({
         success:false,
         message:"user not found"
+      
 })
 
 
@@ -19,7 +20,7 @@ const user=await User.findOne({_id}).select("-password");
   next()
         
     } catch (error) {
-        res.status(500).json({
+        res.status(200).json({
             success:false,
             message:error.message
     })
