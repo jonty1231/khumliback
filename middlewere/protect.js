@@ -6,7 +6,7 @@ import {User} from "../models/userModel.js"
     try {
         const token= req.cookies.khumli;
         if(!token){
-          return res.status(400).json({
+          return res.status(200).json({
               success:false, })
             
             
